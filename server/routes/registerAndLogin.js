@@ -48,4 +48,15 @@ res.send('logged in')
 
 })
 
+
+router.get('/register',async function(req,res){
+  try {
+    let getPost = await authSchema.find();
+      res.json(getPost)
+  } catch (error) {
+    res.send(error)
+}
+
+})
+
 module.exports = router

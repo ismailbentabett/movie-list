@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import registerView from "../views/registerView.vue";
 import loginView from "../views/loginView.vue";
+import moviesListView from "../views/moviesListView.vue";
+import AccountView from "../views/AccountView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,6 +23,17 @@ const routes = [
     path: "/login",
     name: "login",
     component: loginView
+  },
+  {
+    path: "/account/:id",
+    name: "account",
+    component: AccountView
+  },
+  
+  {
+    path: "/Account/:id/moviesList",
+    name: "moviesList",
+    component: moviesListView
   }
 ];
 

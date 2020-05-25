@@ -8,7 +8,7 @@
                         
                          <strong>Password:</strong>
                         <input type="text" class="form-control" v-model="Password">
-                        <button class="btn btn-success" @click="sendRegisterDate()" >register</button>
+                        <button class="btn btn-success" @click="sendRegisterDate()" >login</button>
                         </form>
   </div>
 </template>
@@ -23,8 +23,18 @@ export default {
     return {
   
       Email:'',
-      Password:''
+      Password:'',
+      id:''
     }
+  },
+  mounted(){
+       axios.get('http://localhost:3000/home/register/',{Email:this.Email})
+       .then(res => {
+         console.log(res)
+       })
+       .catch(error =>{
+        console.log(error) 
+       })    
   }
   ,
   methods:{
@@ -36,18 +46,32 @@ e.preventDefault()
     ,
  
     sendRegisterDate :  function(){
-        
+        const emailer = this.Email;
+
      console.log(this.Email);
       console.log(this.Password)
       axios.post('http://localhost:3000/home/login/' , {
  
       Email:this.Email,
       Password:this.Password
+})
+.then(Response =>{
+  console.log("ok",Response)
+
+  axios.get('http://localhost:3000/home/register/',{Email:this.Email})
+       .then(res => {
+        const thatone =  res.data.filter(eyes =>{
+         return   (eyes.Email == emailer)
+         })
+const routePush = `/account/${thatone[0]._id}`
+ this.$router.push(routePush)
+       })
+     
 
 })
-.then(data =>{
-  console.log("ok",data)
-})
+
+
+ 
 
     }
   }
